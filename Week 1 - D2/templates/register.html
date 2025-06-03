@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            background: #0074D9;
+        }
+        .register-container {
+            max-width: 400px; margin: 40px auto; padding: 32px;
+            background: #fff; border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        label, input { display: block; width: 100%; margin: 8px 0; }
+        input { padding: 8px; }
+        .register-btn {
+            margin-top: 20px; background: #007bff; color: #fff;
+            border: none; padding: 10px; border-radius: 4px;
+        }
+        .flex-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div style="margin-bottom:10px; padding:8px; border-radius:5px; color:#fff; background:{% if category == 'success' %}#28a745{% elif category == 'danger' %}#dc3545{% elif category == 'warning' %}#ffc107; color:#212529;{% else %}#007bff{% endif %};">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <h2>Register</h2>
+        <form method="post" action='{{ url_for('register') }}' enctype="multipart/form-data">
+            <label for="image">Upload Image:</label>
+            <input type="file" name="image" accept="image/*">
+
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" name="birthdate" required>
+
+            <label for="address">Address:</label>
+            <input type="text" name="address" required>
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+
+            <div class="flex-container">
+                <button type="submit" class="register-btn" style="width:48%;">Register</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
